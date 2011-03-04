@@ -38,6 +38,8 @@
         $shop_coupon_id = Db_DbHelper::scalar('SELECT id FROM shop_coupons WHERE id = :id', array('id' => $shop_coupon_id));
       } else if ( !is_null($shop_coupon_id) ) {
         $shop_coupon_id = Db_DbHelper::scalar('SELECT id FROM shop_coupons WHERE code = :code', array('code' => $shop_coupon_id));
+      } else {
+        return false;
       }
       
       // Handle the order status
