@@ -25,7 +25,13 @@ Usage
 
 The core of this module is provided by the following function:
 
-    PSCoupon_Module::create_coupon($code_or_length = null, $key = null, $shop_coupon_id = null, $order_status = 'paid', $delete_on_use = false)
+    PSCoupon_Module::create_coupon(
+      $code_or_length = null, 
+      $key = null, 
+      $shop_coupon_id = null, 
+      $order_status = 'paid', 
+      $delete_on_use = false
+    )
     
 It accepts the following parameters:
 
