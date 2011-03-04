@@ -9,6 +9,8 @@ Known issues
 Installation
 ------------
 
+You'll want to pull this repository into a folder named 'pscoupon' inside Lemonstand's modules directory.
+
 After installing the module, you'll need to alter your cart_partial partial (or equivalent) and add some code on your Cart page (or equivalent).
 
 * In your cart_partial, the checkout button should send a request to 'PSCoupon:on_setCouponCode' rather than 'shop:on_setCouponCode'.
