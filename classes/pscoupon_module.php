@@ -71,6 +71,14 @@
       ));
       return Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE code = :code', array('code' => $code));
     }
+    
+    public static function delete_coupon($code_or_id) {
+      if ( is_int($code_or_id) ) {
+        return Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
+      } else {
+        return Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE code = :code', array('id' => $code_or_id));
+      }
+    }
 
     public static function reverse_filter_coupon_code($code = null) {
       if ( !$code ) { return $code; }
