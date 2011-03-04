@@ -2,6 +2,10 @@ NOTE
 ====
 This module is to help programmers add coupon aliases in LemonStand.  In its current incarnation it is of no use to an end user without a developer to integrate it.
 
+Known issues
+==========
+* Adds duplicates of the shop module's actions to the action dropdown for Pages.  I'm hoping to either find a fix or to wait until events/hooks are published to allow cleaner access at coupon codes.
+
 Installation
 ------------
 
