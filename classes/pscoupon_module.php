@@ -69,15 +69,23 @@
         'shop_order_status_id' => $order_status_id,
         'delete_on_use' => (int)$delete_on_use
       ));
-      return Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE code = :code', array('code' => $code));
+      $coupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE code = :code', array('code' => $code));
+      
+      Backend::$events->fireEvent('pscoupon:onCreateCoupon', $coupon);
+      
+      return $coupon;
     }
     
     public static function delete_coupon($code_or_id) {
+      Backend::$events->fireEvent('pscoupon:onBeforeDeleteCoupon');
+      
+      $status = null;
       if ( is_int($code_or_id) ) {
-        return Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
+        $status = Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
       } else {
-        return Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE code = :code', array('id' => $code_or_id));
+        $status = Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE code = :code', array('id' => $code_or_id));
       }
+      return $status;
     }
 
     public static function reverse_filter_coupon_code($code = null) {
@@ -145,6 +153,8 @@
       if (!is_object($pscoupon)) {
         $pscoupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE id = :id', array('id' => $pscoupon_id));
       }
+      Backend::$events->fireEvent('pscoupon:onUseCoupon', $pscoupon);
+      
       if ( $pscoupon->delete_on_use ) {
         Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE id = :id', array('id' => $pscoupon->id));
       } else {
