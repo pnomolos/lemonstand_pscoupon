@@ -151,7 +151,7 @@
     private static function use_code($pscoupon = null) {
       if ( !$pscoupon ) { return false; }
       if (!is_object($pscoupon)) {
-        $pscoupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE id = :id', array('id' => $pscoupon_id));
+        $pscoupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE id = :id', array('id' => $pscoupon));
       }
       Backend::$events->fireEvent('pscoupon:onUseCoupon', $pscoupon);
       
