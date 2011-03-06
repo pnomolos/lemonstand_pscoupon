@@ -123,7 +123,7 @@
     
     public function order_status_changed($order, $new_status, $prev_status_id) {
       $pscoupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE 
-        shop_order_id = :order_id AND shop_order_status_id = :order_status_id', array(
+        shop_order_id = :order_id AND shop_order_status_id = :order_status_id AND used = 0', array(
         'order_id' => $order->id,
         'order_status_id' => $new_status->id
       ));
