@@ -76,6 +76,15 @@
       return $coupon;
     }
     
+    public static function find_coupon($code_or_id) {
+      if ( is_int($code_or_id) ) {
+        $coupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
+      } else {
+        $coupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE code = :code', array('code' => $code_or_id));
+      }
+      return $coupon;
+    }
+    
     public static function delete_coupon($code_or_id) {
       Backend::$events->fireEvent('pscoupon:onBeforeDeleteCoupon');
       
@@ -83,7 +92,7 @@
       if ( is_int($code_or_id) ) {
         $status = Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
       } else {
-        $status = Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE code = :code', array('id' => $code_or_id));
+        $status = Db_DbHelper::query('DELETE FROM pscoupon_coupons WHERE code = :code', array('code' => $code_or_id));
       }
       return $status;
     }
