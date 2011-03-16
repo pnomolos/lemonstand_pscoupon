@@ -76,6 +76,26 @@
       return $coupon;
     }
     
+    public static function save( $coupon ) {
+      if (!$coupon || !$coupon->id) { return false; }
+      return Db_DbHelper::query('UPDATE pscoupon_coupons SET
+        code = :code, 
+        shop_order_id = :shop_order_id, 
+        shop_coupon_id = :shop_coupon_id, 
+        shop_order_status_id = :shop_order_status_id, 
+        used = :used, 
+        delete_on_use = :delete_on_use
+        WHERE id = :id', array(
+        'code'   => $coupon->code,
+        'shop_order_id' => $coupon->shop_order_id,
+        'shop_coupon_id' => $coupon->shop_coupon_id,
+        'shop_order_status_id' => $coupon->shop_order_status_id,
+        'used' => $coupon->used,
+        'delete_on_use' => $coupon->delete_on_use,
+        'id' => $coupon->id
+      ));
+    }
+    
     public static function find_coupon($code_or_id) {
       if ( is_int($code_or_id) ) {
         $coupon = Db_DbHelper::object('SELECT * FROM pscoupon_coupons WHERE id = :id', array('id' => $code_or_id));
